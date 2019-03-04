@@ -108,26 +108,24 @@ public class FundExchangeController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("callback")
-    public ResponseEntity<ApiResult> callback(@RequestParam String orderNo,
-                                              @RequestParam String code,
-                                              @RequestParam String msg) {
+    @PostMapping("callback")
+    public ResponseEntity<ApiResult> callback(@RequestBody FundExchangePage fundExchangePage) {
         ApiResult apiResult = new ApiResult();
-        if (StringUtils.isBlank(orderNo)) {
+        if (StringUtils.isBlank(fundExchangePage.getOrderNo())) {
             apiResult.setStatus(500);
             apiResult.setMsg("传入的订单号为空！");
             return ResponseEntity.ok(apiResult);
         }
-        FundExchange fundExchange = fundExchangeService.getFundExchange(orderNo);
+        FundExchange fundExchange = fundExchangeService.getFundExchange(fundExchangePage.getOrderNo());
         if (fundExchange == null) {
             apiResult.setStatus(500);
             apiResult.setMsg("查不到此订单号！");
             return ResponseEntity.ok(apiResult);
         } else {
-            if ("0".equals(code)) {
+            if ("0".equals(fundExchangePage.getCode())) {
                 fundExchange.setDataStatus(1);
             } else {
-                fundExchange.setErrorReason(msg);
+                fundExchange.setErrorReason(fundExchangePage.getMsg());
             }
             fundExchangeService.update(fundExchange);
             apiResult.setStatus(200);

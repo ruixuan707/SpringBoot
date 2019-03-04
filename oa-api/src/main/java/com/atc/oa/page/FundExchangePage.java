@@ -51,4 +51,9 @@ public class FundExchangePage extends BasePage {
     private String exchangePwd;
     /** 错误原因 */
     private String errorReason;
+
+    /** 状态码 */
+    private String code;
+    /** 错误原因 */
+    private String msg;
 }
