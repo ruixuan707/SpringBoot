@@ -109,7 +109,9 @@ public class FundExchangeController {
     }
 
     @GetMapping("callback")
-    public ResponseEntity<ApiResult> callback(@RequestParam String orderNo) {
+    public ResponseEntity<ApiResult> callback(@RequestParam String orderNo,
+                                              @RequestParam String code,
+                                              @RequestParam String msg) {
         ApiResult apiResult = new ApiResult();
         if (StringUtils.isBlank(orderNo)) {
             apiResult.setStatus(500);
@@ -122,8 +124,14 @@ public class FundExchangeController {
             apiResult.setMsg("查不到此订单号！");
             return ResponseEntity.ok(apiResult);
         } else {
+            if ("0".equals(code)) {
+                fundExchange.setDataStatus(1);
+            } else {
+                fundExchange.setErrorReason(msg);
+            }
+            fundExchangeService.update(fundExchange);
             apiResult.setStatus(200);
-            apiResult.setMsg("成功！");
+            apiResult.setMsg("接口调取成功！");
             return ResponseEntity.ok(apiResult);
         }
     }

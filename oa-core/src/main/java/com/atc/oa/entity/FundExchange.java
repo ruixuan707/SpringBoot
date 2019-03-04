@@ -51,4 +51,6 @@ public class FundExchange extends BaseEntity<Long> {
     private String loginPwd;
     /** 取款密码 */
     private String exchangePwd;
+    /** 错误原因 */
+    private String errorReason;
 }
