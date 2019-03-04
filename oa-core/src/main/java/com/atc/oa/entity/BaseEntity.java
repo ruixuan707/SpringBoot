@@ -1,5 +1,6 @@
 package com.atc.oa.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.atc.oa.listener.EntityListener;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -42,9 +43,11 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
     private ID id;
     /** 创建时间 */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
     /** 修改时间 */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date modifyDate;
     /** 版本 */
     private Long version;
