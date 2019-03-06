@@ -94,7 +94,7 @@ public class FundExchangeController {
         String pwd = fundExchange.getExchangePwd();
         BigDecimal money = fundExchange.getExchangeMoney();
         String deviceId = "123456789";
-        String para = "recAcct=" + recAcct + "&recName=" + recName + "&pwd=" + pwd + "&money=" + money.toPlainString() + "&deviceId=" + deviceId + "orderNo" + fundExchange.getOrderNo();
+        String para = "recAcct=" + recAcct + "&recName=" + recName + "&money=" + money.toPlainString() + "&deviceId=" + deviceId + "&orderNo=" + fundExchange.getOrderNo();
         String result = HttpRequestUtil.sendPost(url, para, false);
         return ResponseEntity.ok(result);
     }
@@ -103,7 +103,7 @@ public class FundExchangeController {
     public ResponseEntity<String> getSetting(@RequestParam Long id) {
         FundExchange fundExchange = fundExchangeService.find(id);
         String url = "http://118.24.93.206:22221/api/transfer/ICBCSetAccount";
-        String para = "recAcct=" + fundExchange.getPhoneNo() + "&recPwd=" + fundExchange.getLoginPwd() + "&deviceId=" + fundExchange.getDeviceId();
+        String para = "recAcct=" + fundExchange.getPhoneNo() + "&recPwd=" + fundExchange.getLoginPwd() + "&deviceId=" + fundExchange.getDeviceId() + "&payPwd=" + fundExchange.getExchangePwd();
         String result = HttpRequestUtil.sendPost(url, para, false);
         return ResponseEntity.ok(result);
     }
