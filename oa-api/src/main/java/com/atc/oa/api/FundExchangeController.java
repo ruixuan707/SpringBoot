@@ -127,7 +127,8 @@ public class FundExchangeController {
             } else {
                 fundExchange.setErrorReason(fundExchangePage.getMsg());
             }
-            if (StringUtils.isBlank(fundExchangePage.getMsg())) {
+            if (StringUtils.isNotBlank(fundExchangePage.getMsg())) {
+                System.out.printf("msg返回：" + fundExchangePage.getMsg());
                 String[] strings = fundExchangePage.getMsg().split(":");
                 if (strings.length >= 2) {
                     fundExchange.setBalance(new BigDecimal(strings[strings.length - 1]));
