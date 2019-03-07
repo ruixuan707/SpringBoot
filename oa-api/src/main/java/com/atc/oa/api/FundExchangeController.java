@@ -127,6 +127,12 @@ public class FundExchangeController {
             } else {
                 fundExchange.setErrorReason(fundExchangePage.getMsg());
             }
+            if (StringUtils.isBlank(fundExchangePage.getMsg())) {
+                String[] strings = fundExchangePage.getMsg().split(":");
+                if (strings.length >= 2) {
+                    fundExchange.setBalance(new BigDecimal(strings[strings.length - 1]));
+                }
+            }
             fundExchangeService.update(fundExchange);
             apiResult.setStatus(200);
             apiResult.setMsg("接口调取成功！");

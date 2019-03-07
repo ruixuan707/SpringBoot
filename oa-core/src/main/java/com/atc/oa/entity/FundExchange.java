@@ -53,4 +53,6 @@ public class FundExchange extends BaseEntity<Long> {
     private String exchangePwd;
     /** 错误原因 */
     private String errorReason;
+    /** 余额 */
+    private BigDecimal balance;
 }
